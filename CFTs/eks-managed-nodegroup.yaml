@@ -1,5 +1,3 @@
-# Author : Anvesh Muppeda  
-
 AWSTemplateFormatVersion: 2010-09-09
 Description: AWS CFT for - Creating EKS Cluster, Managed Node Group, required VPC Networking, and Pod Identity Association dependecies.
 
