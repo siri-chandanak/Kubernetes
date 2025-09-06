@@ -43,6 +43,7 @@ This repository contains examples and configurations for various Kubernetes comp
 Implementing a simple HTML login page using Kubernetes Pod and Service in KIND(Kubernetes IN Docker).
 KIND is a tool for running local Kubernetes clusters using Docker container "nodes". KIND was primarily designed for testing Kubernetes itself, but may be used for local development or CI. 
 KIND runs a Kubernetes cluster inside a Docker container, making it easy to set up and tear down clusters for testing and development purposes.
+Each Pod contains one or more containers, which are the smallest deployable units in Kubernetes. Containers run the application code and its dependencies. Services provide a stable IP address and DNS name for accessing the Pods. Services can be of different types, such as ClusterIP, NodePort, LoadBalancer, and ExternalName. Each node in the cluster runs a container runtime, such as Docker or containerd, which is responsible for running the containers.
 Files included:
 Docker image used: siri019/simple-html-login-page:v1.1
 loginpod.yaml - To create a Pod
