@@ -21,20 +21,20 @@ Worker Nodes(Compute Plane): Worker nodes are responsible for running the contai
 ## Example
 When you run command: `kubectl create pod <pod-name> --image=<image-name>`, the following sequence of events occurs:
 Whole communication is handled by API server.
-Step 1: API server receives the request to create a pod.
-Step 2 & 3: API server validates the request and stores the pod definition in etcd.(sending and receiving data from etcd by API server)
-Step 4: API server sends the request to the scheduler to find a suitable worker node for the pod.
-Step 5: Scheduler sends request to API Server to check the available resources on worker nodes from kubelet present in each worker node.
-Step 6: API server communicates with kubelet on each worker node to get the resource information.
-Step 7: kublets from each worker node send the resource information back to the API server.
-Step 8: API server sends the resource information to the scheduler.
-Step 9: Scheduler selects a suitable worker node based on the resource availability and other constraints and sends the information back to the API server.
-Step 10: API server sends the request to the kubelet on the selected worker node to create the pod.
-Step 11: Kubelet on the selected worker node receives the request and communicates with the container runtime to pull the specified image and create the container.
-Step 12: Container runtime pulls the image and creates the container.
-Step 13: Kubelet monitors the status of the pod and ensures that it is running and healthy. Kubelet sends the status of the pod back to the API server.
-Step 14: API server updates the status of the pod in etcd.
-Step 15: API server updates the user about the status of the pod creation.
+- Step 1: API server receives the request to create a pod.
+- Step 2 & 3: API server validates the request and stores the pod definition in etcd.(sending and receiving data from etcd by API server)
+- Step 4: API server sends the request to the scheduler to find a suitable worker node for the pod.
+- Step 5: Scheduler sends request to API Server to check the available resources on worker nodes from kubelet present in each worker node.
+- Step 6: API server communicates with kubelet on each worker node to get the resource information.
+- Step 7: kublets from each worker node send the resource information back to the API server.
+- Step 8: API server sends the resource information to the scheduler.
+- Step 9: Scheduler selects a suitable worker node based on the resource availability and other constraints and sends the information back to the API server.
+- Step 10: API server sends the request to the kubelet on the selected worker node to create the pod.
+- Step 11: Kubelet on the selected worker node receives the request and communicates with the container runtime to pull the specified image and create the container.
+- Step 12: Container runtime pulls the image and creates the container.
+- Step 13: Kubelet monitors the status of the pod and ensures that it is running and healthy. Kubelet sends the status of the pod back to the API server.
+- Step 14: API server updates the status of the pod in etcd.
+- Step 15: API server updates the user about the status of the pod creation.
 
 User can check the status of the pod using the command: `kubectl get pods`
 
