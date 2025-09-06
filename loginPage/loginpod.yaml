@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: loginpod
+  labels:
+    app.kubernetes.io/name: loginpod
+spec:
+  containers:
+  - name: loginpod
+    image: siri019/simple-html-login-page:v1.1
+    ports:
+    - containerPort: 80

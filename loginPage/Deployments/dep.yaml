@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: login-deployment
+  labels:
+    app: login
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: login
+  template:
+    metadata:
+      labels:
+        app: login
+    spec:
+      containers:
+      - name: loginpod
+        image: nginx #siri019/simple-html-login-page:v1.1
+        ports:
+        - containerPort: 80

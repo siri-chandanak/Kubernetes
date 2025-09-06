@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: login-replicaset
+  labels:
+    app: login-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: login-replicaset
+  template:
+    metadata:
+      labels:
+        app: login-replicaset
+    spec:
+      containers:
+      - name: loginpod
+        image: siri019/simple-html-login-page:v1.1

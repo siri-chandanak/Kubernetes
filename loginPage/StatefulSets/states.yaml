@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: login
+spec:
+  selector:
+    matchLabels:
+      app: login # has to match .spec.template.metadata.labels
+  serviceName: "login"
+  replicas: 3 # by default is 1
+  minReadySeconds: 10 # by default is 0
+  template:
+    metadata:
+      labels:
+        app: login # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: login
+        image: siri019/simple-html-login-page:v1.1
+        ports:
+        - containerPort: 80
