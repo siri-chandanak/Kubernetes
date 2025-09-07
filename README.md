@@ -145,9 +145,8 @@ Namespaces can also be used to apply resource quotas and limit ranges, which hel
 Kubernetes supports several deployment strategies to manage the rollout of new versions of applications. The most common deployment strategies are:
 - Rolling Update: This is the default deployment strategy in Kubernetes. It gradually replaces old pods with new pods, ensuring that a minimum number of pods are always available to serve traffic. The update process can be controlled using parameters such as maxUnavailable and maxSurge.
 
-example: 
-
-'''
+For example,
+`
 spec:
   replicas: 3
   strategy:
@@ -155,7 +154,7 @@ spec:
     rollingUpdate:
       maxUnavailable: 1  # max Pods that can be unavailable during update
       maxSurge: 1        # max extra Pods created above desired replicas
-'''
+`
 
 if we have 5 pods running and we set maxUnavailable to 1 and maxSurge to 2, during the update process, Kubernetes will ensure that at least 4 pods are always available to serve traffic, while allowing up to 2 additional pods to be created temporarily to speed up the update process.
 - Recreate: This strategy terminates all existing pods before creating new ones. This can result in downtime, as there may be a period when no pods are available to serve traffic.
