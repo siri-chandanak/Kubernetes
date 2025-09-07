@@ -127,8 +127,36 @@ Resource requests and limits are used to manage the resource allocation for cont
 
 Requests: to tell node to assign specified amount of storage to the pod.
 Limits: to tell pod to use only specified amount of storage and not beyond.
-
+(resources--> req-limit.yaml)
 Steps:
 1. Create a Pod with resource requests and limits using the command: `kubectl apply -f pod-with-limits.yaml`
 2. Verify the Pod using the command: `kubectl get pods`
 3. To view the resource usage of the Pod, use the command: `kubectl top pod <pod-name>`
+
+## Namespace
+Namespaces are used to create virtual clusters within a physical Kubernetes cluster. They provide a way to divide cluster resources between multiple users or teams, allowing for better organization and resource management.
+Namespaces can be used to isolate resources, such as Pods, Services, and ConfigMaps, within a specific namespace. This allows different teams or projects to have their own set of resources without interfering with each other.
+Namespaces can also be used to apply resource quotas and limit ranges, which help to manage resource usage within a namespace.
+>kubectl get pods ==> shows pods in default namespace
+>kubectl get pods -A ==> shows pods in all namespaces
+>kubectl get pods -n <namespace-name> ==> shows pods in specified namespace
+
+## Deployment Strategies
+Kubernetes supports several deployment strategies to manage the rollout of new versions of applications. The most common deployment strategies are:
+- Rolling Update: This is the default deployment strategy in Kubernetes. It gradually replaces old pods with new pods, ensuring that a minimum number of pods are always available to serve traffic. The update process can be controlled using parameters such as maxUnavailable and maxSurge.
+example: 
+'''
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1  # max Pods that can be unavailable during update
+      maxSurge: 1        # max extra Pods created above desired replicas
+'''
+if we have 5 pods running and we set maxUnavailable to 1 and maxSurge to 2, during the update process, Kubernetes will ensure that at least 4 pods are always available to serve traffic, while allowing up to 2 additional pods to be created temporarily to speed up the update process.
+- Recreate: This strategy terminates all existing pods before creating new ones. This can result in downtime, as there may be a period when no pods are available to serve traffic.
+- Blue-Green Deployment: This strategy involves running two separate environments, one for the current version (blue) and one for the new version (green). Traffic is switched from the blue environment to the green environment once the new version is verified to be working correctly. This strategy can minimize downtime, but it requires more resources to run two environments simultaneously.
+- Canary Deployment: This strategy involves rolling out the new version to a small subset of users (the canary group) before rolling it out to the entire user base. This allows for testing and verification of the new version in a production environment with minimal impact on users. If any issues are detected, the deployment can be rolled back before affecting a larger number of users.
+- A/B Testing: This strategy involves running two or more versions of an application simultaneously and directinging a portion of traffic to each version. This allows for testing and comparison of different versions in a production environment. A/B testing can be used to evaluate new features, performance improvements, or other changes before rolling them out to the entire user base.
+Each deployment strategy has its own advantages and disadvantages, and the choice of strategy will depend on the specific requirements of the application and the desired level of risk and downtime during the deployment process.
